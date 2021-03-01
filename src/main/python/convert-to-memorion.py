@@ -68,7 +68,7 @@ def parseCard(cardDefinition):
 def write_header(course_number, csv_writer):
    id_german = course_number * 2 - 1
    id_spanish = course_number * 2
-   csv_writer.writerow(("##next:stack",""))
+   csv_writer.writerow(("##########:next_stack",""))
    csv_writer.writerow(("#mid:hfkdkfäirt18y",""))
    csv_writer.writerow(("#sid:" + str(id_german), "#sid:" + str(id_spanish)))
    csv_writer.writerow(("#sn:{  1>Es>De} E01", "#sn:{  2>De>Es} E01"))
