@@ -21,6 +21,15 @@ I_PICTURE_ANSWER=16
 I_WORD_TYPE=17
 I_ID=23
 
+# Language level bits? by course
+# E1-E6 -> A1, E7-E12 -> A2, E13-E19 -> B1, E20-E30 -> B2, E31-E50 -> C1, E51 -> B1, E52 -> A2
+LLs = [2,2,2,2,2,2,
+       4,4,4,4,4,4,
+       16,16,16,16,16,16,16,
+       32,32,32,32,32,32,32,32,32,32,32,
+       128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,
+       16,4]
+
 def buildSpanish(cardDefinition):
    if cardDefinition[I_WORD_TYPE] == 'info':
       return re.compile('^', re.M).sub('</::>', cardDefinition[I_SPANISH])
@@ -84,7 +93,7 @@ def write_header(current_unit, csv_writer):
    csv_writer.writerow(("#am:Only Show Answer",""))
    csv_writer.writerow(("#fcicid",""))
    csv_writer.writerow(("#ao:0",""))
-   csv_writer.writerow(("#ll:2",""))
+   csv_writer.writerow(("#ll:" + str(LLs[course_number-1]),""))
    csv_writer.writerow(("#fn:Deutsch", "#fn:Spanisch", "#fn:Extras", "#fn:AntwortBild", "#fn:WordType", "#fn:Bild I1", "#fn:Bild I2", "#fn:MP3s"))
    csv_writer.writerow(("#la:De", "#la:Es", "#la:Es"))
 
