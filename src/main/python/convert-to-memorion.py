@@ -65,13 +65,14 @@ def parseCard(cardDefinition):
       #mp3-Namen fehlen
       )
 
-def write_header(course_number, csv_writer):
+def write_header(current_unit, csv_writer):
+   course_number = int(current_unit[1:])
    id_german = course_number * 2 - 1
    id_spanish = course_number * 2
    csv_writer.writerow(("##########:next_stack",""))
    csv_writer.writerow(("#mid:hfkdkfäirt18y",""))
    csv_writer.writerow(("#sid:" + str(id_german), "#sid:" + str(id_spanish)))
-   csv_writer.writerow(("#sn:{  1>Es>De} E01", "#sn:{  2>De>Es} E01"))
+   csv_writer.writerow(("#sn:{  1>Es>De} " + current_unit, "#sn:{  2>De>Es} " + current_unit))
    csv_writer.writerow(("#st:Simple Language",""))
    csv_writer.writerow(("#mn:Span5k 2»1", "#mn:Span5k 1»2"))
    csv_writer.writerow(("#sf:LT",""))
@@ -97,8 +98,7 @@ def readAndSplit(inputFileName, ttsFileName='target/tts.csv'):
             if len(row)>10 and row[I_FILTER]=='A' and len(row[I_ID]) > 0:
                if (current_unit != row[I_UNIT]):
                   current_unit = row[I_UNIT]
-                  current_unit_number = int(current_unit[1:])
-                  write_header(current_unit_number, ttsWriter)
+                  write_header(current_unit, ttsWriter)
                ttsWriter.writerow(parseCard(row))
 
 def main(argv):
