@@ -98,11 +98,11 @@ def write_header(current_unit, csv_writer):
    csv_writer.writerow(("#fn:Deutsch", "#fn:Spanisch", "#fn:Extras", "#fn:AntwortBild", "#fn:WordType", "#fn:Bild I1", "#fn:Bild I2", "#fn:MP3s"))
    csv_writer.writerow(("#la:De", "#la:Es", "#la:Es"))
 
-def readAndSplit(inputFileName, ttsFileName='target/tts.csv'):
+def readAndSplit(inputFileName, ttsFileName='target/tts.tsv'):
    with open(inputFileName, newline='') as inputFile:
       vocabularyReader = csv.reader(inputFile, delimiter=',', quotechar='"')
       with open(ttsFileName, 'w', newline='') as ttsFile:
-         ttsWriter = csv.writer(ttsFile, delimiter=',', quotechar='"')
+         ttsWriter = csv.writer(ttsFile, delimiter='\t', quotechar='"')
          current_unit = ""
          for row in vocabularyReader:
             if len(row)>10 and row[I_FILTER]=='A' and len(row[I_ID]) > 0:
@@ -115,9 +115,8 @@ def main(argv):
    inputFileName = argv[0]
    if not os.path.exists('target'):
       os.makedirs('target')
-   outputTTS = 'target/tts_' + os.path.basename(inputFileName)
+   outputTTS = 'target/tts_' + os.path.splitext(os.path.basename(inputFileName))[0] + '.tsv'
    readAndSplit(inputFileName, outputTTS)
-   
    print ('Output file is ', outputTTS)
 
 if __name__ == "__main__":
