@@ -32,7 +32,7 @@ LLs = [2,2,2,2,2,2,
        128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,
        16,4]
 
-def buildSpanish(card_definition):
+def build_spanish(card_definition):
    if card_definition[I_WORD_TYPE] == 'info':
       return re.compile('^', re.M).sub('</::>', card_definition[I_SPANISH])
    return card_definition[I_SPANISH]
@@ -46,7 +46,7 @@ def build_page_3(card_definition, is_mp3):
    page3 +=  "\n\n<b><center><font color='#808080'>" + card_definition[I_UNIT] + ", " + card_definition[I_RANK] + "</font></center></b>"
    return re.compile(r'(?<!http://)www\.').sub('http://www.',page3)
 
-def matchType(wordType):
+def match_type(wordType):
    return {
       'info': '[Info]',
       'nm': 'N',
@@ -74,10 +74,10 @@ def build_mp3(card_definition, is_mp3):
 def parse_card(card_definition, is_mp3=False):
    return (card_definition[I_ID],
       card_definition[I_GERMAN],
-      buildSpanish(card_definition),
+      build_spanish(card_definition),
       build_page_3(card_definition, is_mp3),
       card_definition[I_PICTURE_ANSWER],
-      matchType(card_definition[I_WORD_TYPE]),
+      match_type(card_definition[I_WORD_TYPE]),
       build_picture(card_definition[I_PICTURE_GERMAN]),
       build_picture(card_definition[I_PICTURE_SPANISH]),
       build_mp3(card_definition, is_mp3)
