@@ -108,10 +108,10 @@ def write_header(current_unit, csv_writer):
    csv_writer.writerow(("#la:De", "#la:Es", "#la:Es"))
 
 def read_and_split(inputFileName, tts_file_name='target/tts.tsv', mp3_file_name='target/mp3.tsv'):
-   with open(inputFileName, newline='') as input_file:
+   with open(inputFileName, newline='', encoding='utf8') as input_file:
       vocabulary_reader = csv.reader(input_file, delimiter=',', quotechar='"')
-      with open(tts_file_name, 'w', newline='') as tts_file:
-         with open(mp3_file_name, 'w', newline='') as mp3_file:
+      with open(tts_file_name, 'w', newline='', encoding='utf8') as tts_file:
+         with open(mp3_file_name, 'w', newline='', encoding='utf8') as mp3_file:
             tts_writer = csv.writer(tts_file, delimiter='\t', quotechar='"')
             mp3_writer = csv.writer(mp3_file, delimiter='\t', quotechar='"')
             current_unit = ""
