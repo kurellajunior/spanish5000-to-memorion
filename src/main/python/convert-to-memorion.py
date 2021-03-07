@@ -39,7 +39,7 @@ def build_spanish(card_definition):
    return card_definition[I_SPANISH]
 
 def build_page_3(card_definition, is_mp3):
-   page3 = card_definition[I_PAGE_3]
+   page3 = card_definition[I_PAGE_3] if len(card_definition[I_PAGE_3]) > 0 else '-'
    if len(card_definition[I_AUDIO]) > 0 and not is_mp3:
       page3 += '\n[Read:"' + card_definition[I_AUDIO] + '"]'
    if len(card_definition[I_PICTURE_PAGE_3]) > 0:
