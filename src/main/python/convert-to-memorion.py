@@ -34,7 +34,7 @@ LLs = [2,2,2,2,2,2,
        16,4]
 
 def replace_line_breaks(text):
-   return re.compile(r'\n').sub('<br/>', text)
+   return re.compile(r'\n').sub('<br>', text)
 
 def build_spanish(card_definition):
    if card_definition[I_WORD_TYPE] == 'info':
