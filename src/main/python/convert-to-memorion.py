@@ -33,13 +33,16 @@ LLs = [2,2,2,2,2,2,
        128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,
        16,4]
 
+def replace_line_breaks(text):
+   return re.compile(r'\n').sub('<br/>', text)
+
 def build_spanish(card_definition):
    if card_definition[I_WORD_TYPE] == 'info':
       return re.compile('^', re.M).sub('</::>', card_definition[I_SPANISH])
    return card_definition[I_SPANISH]
 
 def build_page_3(card_definition, is_mp3):
-   page3 = card_definition[I_PAGE_3] if len(card_definition[I_PAGE_3]) > 0 else '-'
+   page3 = card_definition[I_PAGE_3]
    if len(card_definition[I_AUDIO]) > 0 and not is_mp3:
       page3 += '\n[Read:"' + card_definition[I_AUDIO] + '"]'
    if len(card_definition[I_PICTURE_PAGE_3]) > 0:
@@ -74,9 +77,9 @@ def build_mp3(card_definition, is_mp3):
 
 def parse_card(card_definition, is_mp3=False):
    return (card_definition[I_ID],
-      card_definition[I_GERMAN],
-      build_spanish(card_definition),
-      build_page_3(card_definition, is_mp3),
+      replace_line_breaks(card_definition[I_GERMAN]),
+      replace_line_breaks(build_spanish(card_definition)),
+      replace_line_breaks(build_page_3(card_definition, is_mp3)),
       card_definition[I_PICTURE_ANSWER],
       match_type(card_definition[I_WORD_TYPE]),
       build_picture(card_definition[I_PICTURE_GERMAN]),
