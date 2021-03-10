@@ -118,10 +118,9 @@ def read_and_split(inputFileName, tts_file_name='target/tts.tsv', mp3_file_name=
       vocabulary_reader = csv.reader(input_file, delimiter=',', quotechar='"')
       with open(tts_file_name, 'w', newline='', encoding='utf8') as tts_file:
          with open(mp3_file_name, 'w', newline='', encoding='utf8') as mp3_file:
-            # TODO: revert to standard after Memorion is fixed
-            # csv.writer(tts_file, delimiter='\t', quotechar='"')
-            tts_writer = csv.writer(tts_file, delimiter='\t', quoting=csv.QUOTE_NONE, escapechar=' ')
-            mp3_writer = csv.writer(mp3_file, delimiter='\t', quoting=csv.QUOTE_NONE, escapechar=' ')
+            # csv.writer(tts_file, delimiter='\t', quoting=csv.QUOTE_NONE, escapechar=' ')
+            tts_writer = csv.writer(tts_file, delimiter='\t', quotechar='"')
+            mp3_writer = csv.writer(mp3_file, delimiter='\t', quotechar='"')
             current_unit = ""
             for row in vocabulary_reader:
                if len(row)>10 and row[I_UNIT][0] == 'E' and len(row[I_ID]) > 0:
