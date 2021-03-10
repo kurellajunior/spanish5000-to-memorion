@@ -34,7 +34,8 @@ LLs = [2,2,2,2,2,2,
        16,4]
 
 def replace_line_breaks(text):
-   return re.compile(r'\n').sub('<br>', text)
+   noTabs = re.compile(r'\t').sub('    ', text)
+   return re.compile(r'\n').sub('<br>', noTabs)
 
 def build_spanish(card_definition):
    if card_definition[I_WORD_TYPE] == 'info':
@@ -116,8 +117,10 @@ def read_and_split(inputFileName, tts_file_name='target/tts.tsv', mp3_file_name=
       vocabulary_reader = csv.reader(input_file, delimiter=',', quotechar='"')
       with open(tts_file_name, 'w', newline='', encoding='utf8') as tts_file:
          with open(mp3_file_name, 'w', newline='', encoding='utf8') as mp3_file:
-            tts_writer = csv.writer(tts_file, delimiter='\t', quotechar='"')
-            mp3_writer = csv.writer(mp3_file, delimiter='\t', quotechar='"')
+            # TODO: revert to standard after Memorion is fixed
+            # csv.writer(tts_file, delimiter='\t', quotechar='"')
+            tts_writer = csv.writer(tts_file, delimiter='\t', quoting=csv.QUOTE_NONE, escapechar=' ')
+            mp3_writer = csv.writer(mp3_file, delimiter='\t', quoting=csv.QUOTE_NONE, escapechar=' ')
             current_unit = ""
             for row in vocabulary_reader:
                if len(row)>10 and row[I_UNIT][0] == 'E' and len(row[I_ID]) > 0:
