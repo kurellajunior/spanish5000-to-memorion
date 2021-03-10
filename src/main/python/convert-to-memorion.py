@@ -71,7 +71,8 @@ def build_picture(picture_name):
 
 def build_mp3(card_definition, is_mp3):
    if is_mp3:
-      audio_files = card_definition[I_MP3_GERMAN] + '\n' + card_definition[I_MP3_SPANISH] + '\n'
+      audio_files = card_definition[I_MP3_GERMAN] + '\n' if len(card_definition[I_MP3_GERMAN]) > 1  else ''
+      audio_files += card_definition[I_MP3_SPANISH] + '\n' if len(card_definition[I_MP3_SPANISH]) > 1  else ''
       audio_files +=  card_definition[I_MP3_PAGE_3] if len(card_definition[I_MP3_PAGE_3]) > 1  else ' ' # non breaking space!
       return audio_files.replace(' ', '%20')
    return ''
@@ -119,8 +120,8 @@ def read_and_split(inputFileName, tts_file_name='target/tts.tsv', mp3_file_name=
          with open(mp3_file_name, 'w', newline='', encoding='utf8') as mp3_file:
             # TODO: revert to standard after Memorion is fixed
             # csv.writer(tts_file, delimiter='\t', quotechar='"')
-            tts_writer = csv.writer(tts_file, delimiter='\t', quoting=csv.QUOTE_NONE, escapechar=' ')
-            mp3_writer = csv.writer(mp3_file, delimiter='\t', quoting=csv.QUOTE_NONE, escapechar=' ')
+            tts_writer = csv.writer(tts_file, delimiter='\t', quoting=csv.QUOTE_NONE, escapechar=' ')
+            mp3_writer = csv.writer(mp3_file, delimiter='\t', quoting=csv.QUOTE_NONE, escapechar=' ')
             current_unit = ""
             for row in vocabulary_reader:
                if len(row)>10 and row[I_UNIT][0] == 'E' and len(row[I_ID]) > 0:
