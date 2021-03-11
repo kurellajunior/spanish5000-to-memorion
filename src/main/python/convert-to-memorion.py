@@ -35,7 +35,7 @@ LLs = [2,2,2,2,2,2,
 
 def replace_line_breaks(text):
    noTabs = re.compile(r'\t').sub('    ', text)
-   return re.compile(r'\n').sub('<br>', noTabs)
+   return re.compile(r'\n').sub('<br/>', noTabs)
 
 def build_spanish(card_definition):
    if card_definition[I_WORD_TYPE] == 'info':
@@ -86,7 +86,7 @@ def parse_card(card_definition, is_mp3=False):
       match_type(card_definition[I_WORD_TYPE]),
       build_picture(card_definition[I_PICTURE_GERMAN]),
       build_picture(card_definition[I_PICTURE_SPANISH]),
-      build_mp3(card_definition, is_mp3)
+      replace_line_breaks(build_mp3(card_definition, is_mp3))
       )
 
 def write_header(current_unit, csv_writer):
