@@ -96,7 +96,7 @@ def write_header(current_unit, csv_writer):
    csv_writer.writerow(("##########:next_stack",""))
    csv_writer.writerow(("#mid:hfkdkfäirt18y",""))
    csv_writer.writerow(("#sid:" + str(id_german), "#sid:" + str(id_spanish)))
-   csv_writer.writerow(("#sn:{" + str(id_german).rjust(3) + ">Es>De} " + current_unit, "#sn:{" + str(id_spanish).rjust(3) + ">De>Es} " + current_unit))
+   csv_writer.writerow(("#sn:{" + str(id_german).rjust(3, "0") + ">Es>De} " + current_unit, "#sn:{" + str(id_spanish).rjust(3, "0") + ">De>Es} " + current_unit))
    csv_writer.writerow(("#dd:35%", "#dd:45%"))
    csv_writer.writerow(("#st:Simple Language",""))
    csv_writer.writerow(("#mn:Span5k 2»1", "#mn:Span5k 1»2"))
