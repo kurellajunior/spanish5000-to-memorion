@@ -25,13 +25,26 @@ I_MP3_SPANISH = 20
 I_MP3_PAGE_3 = 21
 
 # Language level bits? by course
-# E1-E6 -> A1, E7-E12 -> A2, E13-E19 -> B1, E20-E30 -> B2, E31-E50 -> C1, E51 -> B1, E52 -> A2
-LLs = [2,2,2,2,2,2,
-       4,4,4,4,4,4,
-       16,16,16,16,16,16,16,
-       32,32,32,32,32,32,32,32,32,32,32,
-       128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,
-       16,4]
+# E1-E6 -> A1, E7-E13 -> A2, E14-E21 -> B1, E22-E32 -> B2, E33-E52 -> C1
+LLs = [
+   2,2,2,2,2,2,
+   4,4,4,4,4,4,4,
+   16,16,16,16,16,16,16,16,
+   32,32,32,32,32,32,32,32,32,32,32,
+   128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,128,
+ ]
+
+# defining those became necessary because the order of courses was changed but we need to keep the ids constant
+sids = {
+   'E01': (1,2), 'E02': (3,4), 'E03': (5,6), 'E04': (7,8), 'E05': (9,10), 'E06': (11,12), 'E07': (13,14), 'E08': (15,16), 'E09': (17,18), 'E10': (19,20), 'E11': (21,22), 'E12': (23,24),
+   'E13': (103,104),
+   'E14': (25,26), 'E15': (27,28), 'E16': (29,30), 'E17': (31,32), 'E18': (33,34), 'E19': (35,36), 'E20': (37,38),
+   'E21': (101,102),
+   'E22': (39,40), 'E23': (41,42), 'E24': (43,44), 'E25': (45,46), 'E26': (47,48), 'E27': (49,50), 'E28': (51,52), 'E29': (53,54), 'E30': (55,56), 'E31': (57,58),
+   'E32': (59,60), 'E33': (61,62), 'E34': (63,64), 'E35': (65,66), 'E36': (67,68), 'E37': (69,70), 'E38': (71,72), 'E39': (73,74), 'E40': (75,76), 'E41': (77,78),
+   'E42': (79,80), 'E43': (81,82), 'E44': (83,84), 'E45': (85,86), 'E46': (87,88), 'E47': (89,90), 'E48': (91,92), 'E49': (93,94), 'E50': (95,96), 'E51': (97,98),
+   'E52': (99,100),
+}
 
 def replace_line_breaks(text):
    noTabs = re.compile(r'\t').sub('    ', text)
@@ -91,12 +104,13 @@ def parse_card(card_definition, is_mp3=False):
 
 def write_header(current_unit, csv_writer):
    course_number = int(current_unit[1:])
-   id_german = course_number * 2 - 1
-   id_spanish = course_number * 2
+   order_number_german = course_number * 2 - 1
+   order_number_spanish = course_number * 2
+   (sid_german, sid_spanish) = sids[current_unit]
    csv_writer.writerow(("##########:next_stack",""))
    csv_writer.writerow(("#mid:hfkdkfäirt18y",""))
-   csv_writer.writerow(("#sid:" + str(id_german), "#sid:" + str(id_spanish)))
-   csv_writer.writerow(("#sn:{" + str(id_german).rjust(3, "0") + ">Es>De} " + current_unit, "#sn:{" + str(id_spanish).rjust(3, "0") + ">De>Es} " + current_unit))
+   csv_writer.writerow(("#sid:" + str(sid_german), "#sid:" + str(sid_spanish)))
+   csv_writer.writerow(("#sn:{" + str(order_number_german).rjust(4, "0") + ">Es>De} " + current_unit, "#sn:{" + str(order_number_spanish).rjust(4, "0") + ">De>Es} " + current_unit))
    csv_writer.writerow(("#dd:35%", "#dd:45%"))
    csv_writer.writerow(("#st:Simple Language",""))
    csv_writer.writerow(("#mn:Span5k 2»1", "#mn:Span5k 1»2"))
